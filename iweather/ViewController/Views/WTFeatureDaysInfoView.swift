@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 final class WTFeatureDaysInfoView: UIView {
+    static let dayInfoCellHeight: CGFloat = 40
     private let tableView = UITableView(frame: .zero)
     private let moreBtn = UIButton(frame: .zero)
     var cellItems: [CCTableViewItem] = []
@@ -66,7 +67,7 @@ final class WTFeatureDaysInfoView: UIView {
             return FeatureDaysInfoItem(data: data)
         })
         self.tableView.snp.updateConstraints { make in
-            make.height.equalTo(40 * CGFloat(self.cellItems.count))
+            make.height.equalTo(WTFeatureDaysInfoView.dayInfoCellHeight * CGFloat(self.cellItems.count))
         }
         self.tableView.reloadData()
         self.moreBtn.isHidden = false
@@ -89,5 +90,10 @@ extension WTFeatureDaysInfoView: UITableViewDelegate, UITableViewDataSource {
         cell?.backgroundView?.backgroundColor = UIColor.clear
         cell?.backgroundColor = UIColor.clear
         return cell ?? CCTableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = self.cellItems[indexPath.row]
+        return item.cellHeight
     }
 }

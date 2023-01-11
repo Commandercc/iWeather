@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24327349296E579F002A1654 /* WTFeatureHoursInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */; };
+		2432734B296E5873002A1654 /* FeatureHoursInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */; };
+		2432734D296E609B002A1654 /* CCCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432734C296E609B002A1654 /* CCCollectionViewItem.swift */; };
 		24B30A602968962700A2221E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30A5F2968962700A2221E /* AppDelegate.swift */; };
 		24B30A622968962700A2221E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30A612968962700A2221E /* SceneDelegate.swift */; };
 		24B30A692968962800A2221E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24B30A682968962800A2221E /* Assets.xcassets */; };
@@ -43,6 +46,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTFeatureHoursInfoView.swift; sourceTree = "<group>"; };
+		2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureHoursInfoItem.swift; sourceTree = "<group>"; };
+		2432734C296E609B002A1654 /* CCCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCollectionViewItem.swift; sourceTree = "<group>"; };
 		24B30A5C2968962700A2221E /* iweather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iweather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B30A5F2968962700A2221E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B30A612968962700A2221E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +184,7 @@
 				24B30A792969108F00A2221E /* CCBaseViewController.swift */,
 				24B30A7A2969108F00A2221E /* CCTableViewController.swift */,
 				24B30A782969108F00A2221E /* CCTableViewItem.swift */,
+				2432734C296E609B002A1654 /* CCCollectionViewItem.swift */,
 			);
 			path = BaseUI;
 			sourceTree = "<group>";
@@ -223,6 +230,8 @@
 				24B30AB3296D9FDF00A2221E /* WTNowInfoView.swift */,
 				24B30AB5296DBD7500A2221E /* WTFeatureDaysInfoView.swift */,
 				24CBE3AC296DC575003EAAF3 /* FeatureDaysInfoItem.swift */,
+				24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */,
+				2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,6 +379,7 @@
 			files = (
 				24B30A82296910D200A2221E /* CCWebView.swift in Sources */,
 				24B30AA92969A49500A2221E /* WTTitleLocationScrollView.swift in Sources */,
+				24327349296E579F002A1654 /* WTFeatureHoursInfoView.swift in Sources */,
 				24B30AAE296A877400A2221E /* WTDetailViewModel.swift in Sources */,
 				24B30A84296910D200A2221E /* CCNavigationTitleView.swift in Sources */,
 				24B30AB6296DBD7500A2221E /* WTFeatureDaysInfoView.swift in Sources */,
@@ -380,7 +390,9 @@
 				24B30A9E29691C2500A2221E /* WTHomeViewController.swift in Sources */,
 				24B30A902969111600A2221E /* Then.swift in Sources */,
 				24B30A83296910D200A2221E /* CCActivityLoadingView.swift in Sources */,
+				2432734B296E5873002A1654 /* FeatureHoursInfoItem.swift in Sources */,
 				24B30A8F2969111600A2221E /* UIColor+Addition.swift in Sources */,
+				2432734D296E609B002A1654 /* CCCollectionViewItem.swift in Sources */,
 				24B30A7D2969108F00A2221E /* CCTableViewController.swift in Sources */,
 				24B30AB2296C52EF00A2221E /* WTHomeViewModel.swift in Sources */,
 				24B30A99296915AB00A2221E /* CCLog.swift in Sources */,

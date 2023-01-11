@@ -15,6 +15,7 @@ final class WTDetailPageListViewController: CCBaseViewController {
     
     private let nowInfoView = WTNowInfoView(frame: .zero) // 今日天气
     private let daysInfoView = WTFeatureDaysInfoView(frame: .zero) // 未来x天天气
+    private let hoursInfoView = WTFeatureHoursInfoView(frame: .zero) // 未来x时天气
     
     init(locationId: String) {
         super.init()
@@ -48,6 +49,8 @@ final class WTDetailPageListViewController: CCBaseViewController {
         nowInfoView.frame = CGRect(x: 0, y: CGFloat.navBarHeight, width: CGFloat.screenWidth, height: CGFloat.screenHeight / 2.0)
         scrollView.addSubview(daysInfoView)
         daysInfoView.frame = CGRect(x: 0, y: nowInfoView.bottom, width: CGFloat.screenWidth, height: 300)
+        scrollView.addSubview(hoursInfoView)
+        hoursInfoView.frame = CGRect(x: 0, y: daysInfoView.bottom, width: CGFloat.screenWidth, height: 150)
     }
     
     private func bindViewModel() {
@@ -56,6 +59,7 @@ final class WTDetailPageListViewController: CCBaseViewController {
             if success {
                 self.nowInfoView.updateValues(temp: now?.temp ?? "", desc: now?.text ?? "")
                 self.daysInfoView.updateViews(dayList: dayList ?? [])
+                self.hoursInfoView.updateViews(hours: hourList ?? [])
                 CC.log("now: \(now)  daylist: \(dayList)     hourlist:  \(hourList)")
 //                if let stateBg = UIImage(named: "hefengbg_100d") {
 //                    self.scrollView.backgroundColor = UIColor(patternImage: stateBg)

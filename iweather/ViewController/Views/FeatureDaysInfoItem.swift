@@ -42,7 +42,7 @@ final class FeatureDaysInfoItem: CCTableViewItem {
     init(data: FeatureDaysInfoDataModel) {
         self.data = data
         super.init()
-        self.cellHeight = 40
+        self.cellHeight = WTFeatureDaysInfoView.dayInfoCellHeight
     }
 }
 
