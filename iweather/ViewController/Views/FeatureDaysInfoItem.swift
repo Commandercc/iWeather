@@ -19,7 +19,7 @@ final class FeatureDaysInfoDataModel {
     var windDirDay: String = "" // 白天风向
     var windScaleDay: String = "" // 白天风力等级
     var WindDirNight: String = "" // 夜晚风向
-    var windScaleNight: String = "" // 夜晚风力等级
+    var windScaleNight: String = "" // 夜晚 风力等级
     
     init(fxDate: String = "", tempMax: String = "", tempMin: String = "", textDay: String = "", iconDay: String = "", textNight: String = "", iconNight: String = "", windDirDay: String = "", windScaleDay: String = "", WindDirNight: String = "", windScaleNight: String = "") {
         self.fxDate = fxDate
