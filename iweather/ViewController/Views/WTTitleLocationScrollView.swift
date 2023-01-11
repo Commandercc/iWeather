@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 
 final class WTTitleLocationScrollView: UIView {
-    
-    private let addView = UIImageView(image: UIImage(named: "icon_add_white"))
-    private let moreView = UIImageView(image: UIImage(named: "icon_more_vertical_white"))
+    private let addView = UIImageView(image: UIImage(named: "icon_add_black"))
+    private let moreView = UIImageView(image: UIImage(named: "icon_more_vertical_black"))
     private let location = UILabel(frame: .zero)
     let pageControl = UIPageControl(frame: .zero)
     var localTitles: [String] = [] {
@@ -30,24 +29,25 @@ final class WTTitleLocationScrollView: UIView {
     }
     
     private func setupViews() {
+        self.backgroundColor = WTBaseData.mainBackColor
         self.addSubViews(views: [addView, location, moreView, pageControl])
         addView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(CGFloat.statusBarHeight + 10)
             make.left.equalToSuperview().offset(20)
             make.width.equalTo(20)
             make.height.equalTo(20)
-            make.centerY.equalToSuperview()
         }
         location.snp.makeConstraints { make in
             make.left.greaterThanOrEqualTo(addView.snp.right).offset(10)
             make.centerX.equalToSuperview()
             make.right.greaterThanOrEqualTo(moreView.snp.left).offset(-10)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(addView.snp.centerY)
         }
         moreView.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-20)
             make.width.equalTo(20)
             make.height.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(addView.snp.centerY)
         }
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(location.snp.bottom)
@@ -57,14 +57,24 @@ final class WTTitleLocationScrollView: UIView {
             make.centerX.equalToSuperview()
         }
         
+        let lineView = UIView(frame: .zero)
+        self.addSubview(lineView)
+        lineView.backgroundColor = UIColor.lightGray
+        lineView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
+        
         location.text = "朝阳区 左家庄西街"
         location.font = UIFont.BoldFont(18)
         location.textAlignment = .center
         location.lineBreakMode = .byTruncatingTail
-        location.textColor = UIColor.white
+        location.textColor = UIColor.black
         
         pageControl.pageIndicatorTintColor = UIColor.lightGray
-        pageControl.currentPageIndicatorTintColor = UIColor.white
+        pageControl.currentPageIndicatorTintColor = UIColor.black
         pageControl.isEnabled = false
     }
 }

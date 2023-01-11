@@ -96,6 +96,7 @@ extension UIColor {
     static var xAD6B45: UIColor { return UIColor.HEXCOLOR(0xAD6B45) }
     static var xAE7D2E: UIColor { return UIColor.HEXCOLOR(0xae7d2e) }
     static var xA2A2A2: UIColor { return UIColor.HEXCOLOR(0xa2a2a2) }
+    static var xA9A9A9: UIColor { return UIColor.HEXCOLOR(0xa9a9a9) }
     static var xB10000: UIColor { return UIColor.HEXCOLOR(0xb10000) }
     static var xBFAB90: UIColor { return UIColor.HEXCOLOR(0xBFAB90) }
     static var xCCCCCC: UIColor { return UIColor.HEXCOLOR(0xcccccc) }

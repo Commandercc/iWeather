@@ -9,10 +9,14 @@ import Foundation
 import UIKit
 
 final class WTFeatureDaysInfoView: UIView {
+    var clickMoreClosure: ((CGFloat) -> Void)?
     static let DayInfoCellHeight: CGFloat = 40
     private let tableView = UITableView(frame: .zero)
     private let moreBtn = UIButton(frame: .zero)
     var cellItems: [CCTableViewItem] = []
+    private var isExpand: Bool = false // 标志是否是展开状态
+    private var dataList: [FeatureDaysInfoDataModel] = []
+    private let topTilte = UILabel(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,53 +28,77 @@ final class WTFeatureDaysInfoView: UIView {
     }
     
     private func setupViews() {
+        self.backgroundColor = WTBaseData.moduleBackColor
+        self.addSubview(topTilte)
         self.addSubview(tableView)
         self.addSubview(moreBtn)
+        topTilte.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(10)
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.height.equalTo(30)
+        }
         tableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalTo(topTilte.snp.bottom)
             make.height.equalTo(0)
         }
         moreBtn.snp.makeConstraints { make in
             make.top.equalTo(tableView.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
             make.height.equalTo(40)
         }
+        
+        topTilte.font = UIFont.Font(18)
+        topTilte.textColor = WTBaseData.mainTitleColor
+        topTilte.textAlignment = .left
+        topTilte.text = "未来7天天气"
         
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = false
-        tableView.backgroundColor = UIColor.clear
         
-        moreBtn.setTitle("查看近15天天气", for: .normal)
-        moreBtn.setTitleColor(UIColor.white, for: .normal)
+        moreBtn.setTitle("展开更多", for: .normal)
+        moreBtn.setTitleColor(WTBaseData.mainTitleColor, for: .normal)
         moreBtn.titleLabel?.textAlignment = .center
-        moreBtn.titleLabel?.font = UIFont.Font(20)
-        
+        moreBtn.titleLabel?.font = UIFont.Font(15)
+        moreBtn.addTarget(self, action: #selector(moreBtnClockEvent), for: .touchUpInside)
         self.moreBtn.isHidden = true
     }
     
-    func updateViews(dayList: [Daily]) {
-        guard !dayList.isEmpty else { return }
-        self.cellItems = dayList.prefix(3).map({ daily in
-            let data = FeatureDaysInfoDataModel()
-            data.fxDate = daily.fxDate
-            data.tempMax = daily.tempMax
-            data.tempMin = daily.tempMin
-            data.textDay = daily.textDay
-            data.iconDay = daily.iconDay
-            data.textNight = daily.textNight
-            data.iconNight = daily.iconNight
-            return FeatureDaysInfoItem(data: data)
-        })
+    func updateViews(dataList: [FeatureDaysInfoDataModel]) {
+        guard !dataList.isEmpty else { return }
+        self.isExpand = false
+        self.dataList = dataList
+        self.moreBtn.isHidden = false
+        self.handleTableEvent(isExpand: self.isExpand)
+    }
+    
+    private func handleTableEvent(isExpand: Bool) {
+        if isExpand { // 展开
+            self.cellItems = self.dataList.map({ data in
+                return FeatureDaysInfoItem(data: data)
+            })
+        } else { // 收起
+            self.cellItems = self.dataList.prefix(3).map({ data in
+                return FeatureDaysInfoItem(data: data)
+            })
+        }
         self.tableView.snp.updateConstraints { make in
             make.height.equalTo(WTFeatureDaysInfoView.DayInfoCellHeight * CGFloat(self.cellItems.count))
         }
         self.tableView.reloadData()
-        self.moreBtn.isHidden = false
+    }
+    
+    @objc func moreBtnClockEvent() {
+        self.isExpand = !self.isExpand
+        let title: String = self.isExpand ? "收起" : "展开更多"
+        moreBtn.setTitle(title, for: .normal)
+        self.handleTableEvent(isExpand: self.isExpand)
+        self.clickMoreClosure?(CGFloat(10 + 30 + 40 + self.cellItems.count * 40))
     }
 }
 
@@ -87,8 +115,6 @@ extension WTFeatureDaysInfoView: UITableViewDelegate, UITableViewDataSource {
         }
         cell?.item = item
         cell?.selectionStyle = .none
-        cell?.backgroundView?.backgroundColor = UIColor.clear
-        cell?.backgroundColor = UIColor.clear
         return cell ?? CCTableViewCell()
     }
     

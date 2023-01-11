@@ -71,7 +71,17 @@ final class FeatureDaysInfoCell: CCTableViewCell {
     }
     
     private func setupViews() {
-        self.contentView.addSubViews(views: [iconView, fxDateLabel, descLabel, tempLabel])
+        let backView = UIView(frame: .zero)
+        self.contentView.addSubview(backView)
+        backView.backgroundColor = WTBaseData.mainBackColor
+        backView.layer.cornerRadius = 5
+        backView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(2.5)
+            make.bottom.equalToSuperview().offset(-2.5)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
+        backView.addSubViews(views: [iconView, fxDateLabel, descLabel, tempLabel])
         iconView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -89,19 +99,18 @@ final class FeatureDaysInfoCell: CCTableViewCell {
         tempLabel.snp.makeConstraints { make in
             make.right.equalToSuperview()
             make.centerY.equalTo(iconView.snp.centerY)
-            
         }
 
-        fxDateLabel.font = UIFont.Font(18)
-        fxDateLabel.textColor = UIColor.white
+        fxDateLabel.font = UIFont.Font(13)
+        fxDateLabel.textColor = WTBaseData.mainTitleColor
         fxDateLabel.textAlignment = .left
         
-        descLabel.font = UIFont.Font(18)
-        descLabel.textColor = UIColor.white
+        descLabel.font = UIFont.Font(13)
+        descLabel.textColor = WTBaseData.mainTitleColor
         descLabel.textAlignment = .left
         
-        tempLabel.font = UIFont.Font(18)
-        tempLabel.textColor = UIColor.white
+        tempLabel.font = UIFont.Font(13)
+        tempLabel.textColor = WTBaseData.mainTitleColor
         tempLabel.textAlignment = .right
     }
     
@@ -113,6 +122,6 @@ final class FeatureDaysInfoCell: CCTableViewCell {
             descLabel.text = data.textDay
         }
         fxDateLabel.text = data.fxDate
-        tempLabel.text = "\(data.tempMax) ℃/ \(data.tempMin)℃"
+        tempLabel.text = "\(data.tempMin)° / \(data.tempMax)°"
     }
 }

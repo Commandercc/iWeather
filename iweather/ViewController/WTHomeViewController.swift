@@ -9,12 +9,8 @@ import Foundation
 import UIKit
 import Toast_Swift
 
-//protocol CCSegmentedPageViewDelegate {
-//    func viewControllerDidBecomeVisible(viewController: UIViewController) -> Void
-//    func viewControllerDidBecomeInvisible(viewController: UIViewController) -> Void
-//}
-
 final class WTHomeViewController: CCBaseViewController {
+    static let TopHeight: CGFloat = 55 + CGFloat.statusBarHeight
     private let locationView = WTTitleLocationScrollView(frame: .zero)
     private let scrollView = UIScrollView(frame: .zero)
     private var viewControllers: [WTDetailPageListViewController] = []
@@ -40,7 +36,7 @@ final class WTHomeViewController: CCBaseViewController {
         scrollView.isPagingEnabled = true
         scrollView.delegate = self
         scrollView.frame = CGRect(x: 0, y: 0, width: CGFloat.screenWidth, height: CGFloat.screenHeight)
-        locationView.frame = CGRect(x: 0, y: 0, width: CGFloat.screenWidth, height: 100 + CGFloat.statusBarHeight)
+        locationView.frame = CGRect(x: 0, y: 0, width: CGFloat.screenWidth, height: WTHomeViewController.TopHeight)
         locationView.localTitles = ["qqqq", "wwww", "eeee"]
     }
     
@@ -58,14 +54,12 @@ final class WTHomeViewController: CCBaseViewController {
 
 extension WTHomeViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        CC.log("滑动停止")
         let pageIndex = Int(floor((scrollView.contentOffset.x - scrollView.frame.size.width / 2)) / scrollView.frame.size.width + 1)
         if pageIndex >= 0 && pageIndex < self.viewControllers.count && pageIndex != self.currentIndex {
             self.locationView.pageControl.currentPage = pageIndex
             self.currentIndex = pageIndex
-            self.viewControllers[self.currentIndex].loadDetailWeatherData()
+            //self.viewControllers[self.currentIndex].loadDetailWeatherData()
         }
-        CC.log("page index : \(pageIndex)")
     }
 }
 

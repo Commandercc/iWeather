@@ -11,7 +11,6 @@ import UIKit
 final class WTDetailPageListViewController: CCBaseViewController {
     private var viewModel = WTDetailViewModel()
     private let scrollView = UIScrollView(frame: .zero)
-    private let backWeatherImg = UIImageView(frame: .zero)
     
     private let nowInfoView = WTNowInfoView(frame: .zero) // 今日天气
     private let daysInfoView = WTFeatureDaysInfoView(frame: .zero) // 未来x天天气
@@ -35,40 +34,74 @@ final class WTDetailPageListViewController: CCBaseViewController {
     }
     
     private func setupViews() {
-        self.view.addSubview(backWeatherImg)
         self.view.addSubview(scrollView)
-        
-        scrollView.showsVerticalScrollIndicator = true
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        backWeatherImg.frame = CGRect(x: 0, y: 0, width: CGFloat.screenWidth, height: CGFloat.screenHeight)
-        scrollView.frame = CGRect(x: 0, y: 0, width: CGFloat.screenWidth, height: CGFloat.screenHeight)
-        scrollView.contentSize = CGSize(width: 0, height: CGFloat.screenHeight * 1.5)
+        scrollView.backgroundColor = WTBaseData.mainBackColor
         
-        backWeatherImg.image = UIImage(named: "hefengbg_100d")
-        backWeatherImg.contentMode = .scaleToFill
-    
-        scrollView.addSubview(nowInfoView)
-        nowInfoView.frame = CGRect(x: 0, y: CGFloat.navBarHeight, width: CGFloat.screenWidth, height: CGFloat.screenHeight / 2.0)
-        scrollView.addSubview(daysInfoView)
-        daysInfoView.frame = CGRect(x: 0, y: nowInfoView.bottom, width: CGFloat.screenWidth, height: 300)
-        scrollView.addSubview(hoursInfoView)
-        hoursInfoView.frame = CGRect(x: 0, y: daysInfoView.bottom, width: CGFloat.screenWidth, height: 150)
-        scrollView.addSubview(todayIndiceInfoView)
-        todayIndiceInfoView.frame = CGRect(x: 0, y: hoursInfoView.bottom, width: CGFloat.screenWidth, height: 300)
+        scrollView.addSubViews(views: [nowInfoView, daysInfoView, hoursInfoView, todayIndiceInfoView])
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        let leftSpace: CGFloat = 10
+        let childWidth: CGFloat = CGFloat.screenWidth - leftSpace * 2
+        nowInfoView.snp.makeConstraints { make in
+            make.top.equalTo(WTHomeViewController.TopHeight + 10)
+            make.left.equalToSuperview().offset(leftSpace)
+            make.width.equalTo(childWidth)
+            make.right.equalToSuperview().offset(-leftSpace)
+            make.height.equalTo(300)
+        }
+        daysInfoView.snp.makeConstraints { make in
+            make.top.equalTo(nowInfoView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(leftSpace)
+            make.width.equalTo(childWidth)
+            make.right.equalToSuperview().offset(-leftSpace)
+            make.height.equalTo(200)
+        }
+        hoursInfoView.snp.makeConstraints { make in
+            make.top.equalTo(daysInfoView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(leftSpace)
+            make.width.equalTo(childWidth)
+            make.right.equalToSuperview().offset(-leftSpace)
+            make.height.equalTo(200)
+        }
+        todayIndiceInfoView.snp.makeConstraints { make in
+            make.top.equalTo(hoursInfoView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(leftSpace)
+            make.width.equalTo(childWidth)
+            make.right.equalToSuperview().offset(-leftSpace)
+            make.height.equalTo(200)
+            make.bottom.equalToSuperview()
+        }
+        
+        nowInfoView.layer.cornerRadius = WTBaseData.moduleCornerRadius
+        daysInfoView.layer.cornerRadius = WTBaseData.moduleCornerRadius
+        daysInfoView.layer.masksToBounds = true
+        
+        daysInfoView.clickMoreClosure = { [weak self] height in
+            self?.daysInfoView.snp.updateConstraints { make in
+                make.height.equalTo(height)
+            }
+        }
     }
     
     private func bindViewModel() {
         self.viewModel.loadCallBack = { [weak self] (now, dayList, hourList, indiceList, success) in
             guard let self = self else { return }
             if success {
-                self.nowInfoView.updateValues(temp: now?.temp ?? "", desc: now?.text ?? "")
-                self.daysInfoView.updateViews(dayList: dayList ?? [])
-                self.hoursInfoView.updateViews(hours: hourList ?? [])
-                self.todayIndiceInfoView.updateViews(indiceList: indiceList ?? [])
+                if let now = now {
+                    let nowData = self.convertToNowData(now: now)
+                    self.nowInfoView.updateValues(data: nowData)
+                }
+                if let dayList = dayList {
+                    let dailyList = self.convertToDaysData(dailyList: dayList)
+                    self.daysInfoView.updateViews(dataList: dailyList)
+                }
+//                self.hoursInfoView.updateViews(hours: hourList ?? [])
+//                self.todayIndiceInfoView.updateViews(indiceList: indiceList ?? [])
                 CC.log("now: \(now)  daylist: \(dayList)     hourlist:  \(hourList)")
-//                if let stateBg = UIImage(named: "hefengbg_100d") {
-//                    self.scrollView.backgroundColor = UIColor(patternImage: stateBg)
-//                }
+
             } else {
                 self.view.makeToast("数据获取失败，请重试")
             }
@@ -77,6 +110,36 @@ final class WTDetailPageListViewController: CCBaseViewController {
     
     func loadDetailWeatherData() {
         self.viewModel.loadAllWeatherInfo()
+    }
+    
+    func convertToNowData(now: Now) -> NowInfoDataModel {
+        let nowData = NowInfoDataModel()
+        nowData.windSpeed = now.windSpeed
+        nowData.windScale = now.windScale
+        nowData.windDir = now.windDir
+        nowData.text = now.text
+        nowData.vis = now.vis
+        nowData.precip = now.precip
+        nowData.humidity = now.humidity
+        nowData.feelsLike = now.feelsLike
+        nowData.temp = now.temp
+        nowData.icon = now.icon
+        nowData.pressure = now.pressure
+        return nowData
+    }
+    
+    func convertToDaysData(dailyList: [Daily]) -> [FeatureDaysInfoDataModel] {
+        return dailyList.map { daily in
+            let data = FeatureDaysInfoDataModel()
+            data.fxDate = daily.fxDate
+            data.tempMax = daily.tempMax
+            data.tempMin = daily.tempMin
+            data.textDay = daily.textDay
+            data.iconDay = daily.iconDay
+            data.textNight = daily.textNight
+            data.iconNight = daily.iconNight
+            return data
+        }
     }
 }
  
