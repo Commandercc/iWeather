@@ -10,6 +10,8 @@
 		24327349296E579F002A1654 /* WTFeatureHoursInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */; };
 		2432734B296E5873002A1654 /* FeatureHoursInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */; };
 		2432734D296E609B002A1654 /* CCCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432734C296E609B002A1654 /* CCCollectionViewItem.swift */; };
+		2432734F296EBBBE002A1654 /* IndiceDailyInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432734E296EBBBD002A1654 /* IndiceDailyInfoItem.swift */; };
+		24327351296ED1DA002A1654 /* WTTodayIndiceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24327350296ED1DA002A1654 /* WTTodayIndiceInfoView.swift */; };
 		24B30A602968962700A2221E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30A5F2968962700A2221E /* AppDelegate.swift */; };
 		24B30A622968962700A2221E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30A612968962700A2221E /* SceneDelegate.swift */; };
 		24B30A692968962800A2221E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24B30A682968962800A2221E /* Assets.xcassets */; };
@@ -49,6 +51,8 @@
 		24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTFeatureHoursInfoView.swift; sourceTree = "<group>"; };
 		2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureHoursInfoItem.swift; sourceTree = "<group>"; };
 		2432734C296E609B002A1654 /* CCCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCollectionViewItem.swift; sourceTree = "<group>"; };
+		2432734E296EBBBD002A1654 /* IndiceDailyInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndiceDailyInfoItem.swift; sourceTree = "<group>"; };
+		24327350296ED1DA002A1654 /* WTTodayIndiceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTTodayIndiceInfoView.swift; sourceTree = "<group>"; };
 		24B30A5C2968962700A2221E /* iweather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iweather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B30A5F2968962700A2221E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24B30A612968962700A2221E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 				24CBE3AC296DC575003EAAF3 /* FeatureDaysInfoItem.swift */,
 				24327348296E579F002A1654 /* WTFeatureHoursInfoView.swift */,
 				2432734A296E5873002A1654 /* FeatureHoursInfoItem.swift */,
+				2432734E296EBBBD002A1654 /* IndiceDailyInfoItem.swift */,
+				24327350296ED1DA002A1654 /* WTTodayIndiceInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				24B30AA92969A49500A2221E /* WTTitleLocationScrollView.swift in Sources */,
 				24327349296E579F002A1654 /* WTFeatureHoursInfoView.swift in Sources */,
 				24B30AAE296A877400A2221E /* WTDetailViewModel.swift in Sources */,
+				2432734F296EBBBE002A1654 /* IndiceDailyInfoItem.swift in Sources */,
 				24B30A84296910D200A2221E /* CCNavigationTitleView.swift in Sources */,
 				24B30AB6296DBD7500A2221E /* WTFeatureDaysInfoView.swift in Sources */,
 				24B30AB4296D9FDF00A2221E /* WTNowInfoView.swift in Sources */,
@@ -405,6 +412,7 @@
 				24B30A622968962700A2221E /* SceneDelegate.swift in Sources */,
 				24B30AA4296978FA00A2221E /* WTLaunchScreenViewController.swift in Sources */,
 				24B30AAB296A706D00A2221E /* WTBaseData.swift in Sources */,
+				24327351296ED1DA002A1654 /* WTTodayIndiceInfoView.swift in Sources */,
 				24B30A912969111600A2221E /* UIFont+Addition.swift in Sources */,
 				24B30A98296915AB00A2221E /* CCUIConfig.swift in Sources */,
 				24B30A922969111600A2221E /* UIView+Addition.swift in Sources */,

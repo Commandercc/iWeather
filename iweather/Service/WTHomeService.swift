@@ -7,7 +7,8 @@
 
 import Foundation
 
-typealias WeatherRequestCallBack = (WeatherBaseClass?, Error?) -> Void
+typealias WeatherRequestCallBack = (WeatherBaseClass?, Error?) -> Void // 天气状况回调
+typealias IndicesRequestCallBack = (IndicesBaseClass?, Error?) -> Void // 天气指数回调
 
 final class WTHomeService {
     // 获取实时天气信息
@@ -43,6 +44,20 @@ final class WTHomeService {
         AllWeatherInquieirs.sharedInstance().location = locationId
         AllWeatherInquieirs.sharedInstance().weather(withInquireType: .WEATHER_24H) { obj in
             if let obj = obj as? WeatherBaseClass {
+                finish(obj, nil)
+            } else {
+                finish(nil, nil)
+            }
+        } faileureForError: { error in
+            finish(nil, error)
+        }
+    }
+    
+    // 获取今日天气指数信息
+    static func getTodayWeatherIndices(locationId: String, finish: @escaping IndicesRequestCallBack) {
+        AllWeatherInquieirs.sharedInstance().location = locationId
+        AllWeatherInquieirs.sharedInstance().weather(withInquireType: .INDICES_1D) { obj in
+            if let obj = obj as? IndicesBaseClass {
                 finish(obj, nil)
             } else {
                 finish(nil, nil)

@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import Toast_Swift
 
+//protocol CCSegmentedPageViewDelegate {
+//    func viewControllerDidBecomeVisible(viewController: UIViewController) -> Void
+//    func viewControllerDidBecomeInvisible(viewController: UIViewController) -> Void
+//}
+
 final class WTHomeViewController: CCBaseViewController {
     private let locationView = WTTitleLocationScrollView(frame: .zero)
     private let scrollView = UIScrollView(frame: .zero)
@@ -21,7 +26,10 @@ final class WTHomeViewController: CCBaseViewController {
         super.viewDidLoad()
         self.setupViews()
         self.createViewControllers()
-        
+        if self.viewControllers.count > 0 {
+            // 加载首屏天气信息
+            self.viewControllers.first?.loadDetailWeatherData()
+        }
     }
     
     private func setupViews() {
@@ -55,6 +63,7 @@ extension WTHomeViewController: UIScrollViewDelegate {
         if pageIndex >= 0 && pageIndex < self.viewControllers.count && pageIndex != self.currentIndex {
             self.locationView.pageControl.currentPage = pageIndex
             self.currentIndex = pageIndex
+            self.viewControllers[self.currentIndex].loadDetailWeatherData()
         }
         CC.log("page index : \(pageIndex)")
     }

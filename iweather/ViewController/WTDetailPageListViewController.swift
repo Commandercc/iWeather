@@ -16,6 +16,7 @@ final class WTDetailPageListViewController: CCBaseViewController {
     private let nowInfoView = WTNowInfoView(frame: .zero) // 今日天气
     private let daysInfoView = WTFeatureDaysInfoView(frame: .zero) // 未来x天天气
     private let hoursInfoView = WTFeatureHoursInfoView(frame: .zero) // 未来x时天气
+    private let todayIndiceInfoView = WTTodayIndiceInfoView(frame: .zero) // 天气指数
     
     init(locationId: String) {
         super.init()
@@ -30,6 +31,7 @@ final class WTDetailPageListViewController: CCBaseViewController {
         super.viewDidLoad()
         self.setupViews()
         self.bindViewModel()
+        print("log log 执行了viewDidLoad")
     }
     
     private func setupViews() {
@@ -51,15 +53,18 @@ final class WTDetailPageListViewController: CCBaseViewController {
         daysInfoView.frame = CGRect(x: 0, y: nowInfoView.bottom, width: CGFloat.screenWidth, height: 300)
         scrollView.addSubview(hoursInfoView)
         hoursInfoView.frame = CGRect(x: 0, y: daysInfoView.bottom, width: CGFloat.screenWidth, height: 150)
+        scrollView.addSubview(todayIndiceInfoView)
+        todayIndiceInfoView.frame = CGRect(x: 0, y: hoursInfoView.bottom, width: CGFloat.screenWidth, height: 300)
     }
     
     private func bindViewModel() {
-        self.viewModel.loadCallBack = { [weak self] (now, dayList, hourList, success) in
+        self.viewModel.loadCallBack = { [weak self] (now, dayList, hourList, indiceList, success) in
             guard let self = self else { return }
             if success {
                 self.nowInfoView.updateValues(temp: now?.temp ?? "", desc: now?.text ?? "")
                 self.daysInfoView.updateViews(dayList: dayList ?? [])
                 self.hoursInfoView.updateViews(hours: hourList ?? [])
+                self.todayIndiceInfoView.updateViews(indiceList: indiceList ?? [])
                 CC.log("now: \(now)  daylist: \(dayList)     hourlist:  \(hourList)")
 //                if let stateBg = UIImage(named: "hefengbg_100d") {
 //                    self.scrollView.backgroundColor = UIColor(patternImage: stateBg)
@@ -68,6 +73,9 @@ final class WTDetailPageListViewController: CCBaseViewController {
                 self.view.makeToast("数据获取失败，请重试")
             }
         }
+    }
+    
+    func loadDetailWeatherData() {
         self.viewModel.loadAllWeatherInfo()
     }
 }

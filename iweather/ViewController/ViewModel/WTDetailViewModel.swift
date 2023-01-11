@@ -12,8 +12,9 @@ final class WTDetailViewModel {
     private var nowInfo: Now?
     private var hourList: [Hourly]?
     private var dayList: [Daily]?
+    private var indiceList: [IndicesDaily]?
     private let group: DispatchGroup = DispatchGroup()
-    var loadCallBack: ((Now?, [Daily]?, [Hourly]?, Bool) -> Void)?
+    var loadCallBack: ((Now?, [Daily]?, [Hourly]?, [IndicesDaily]?, Bool) -> Void)?
     
     init() {}
     
@@ -21,11 +22,12 @@ final class WTDetailViewModel {
         self.getNowWeatherInfo()
         self.get7DWeatherInfo()
         self.get24HWeatherInfo()
+        self.getTodayWeatherIndices()
         self.group.notify(queue: DispatchQueue.main) {
-            if self.nowInfo == nil || self.dayList == nil || self.hourList == nil {
-                self.loadCallBack?(nil, nil, nil, false)
+            if self.nowInfo == nil || self.dayList == nil || self.hourList == nil || self.indiceList == nil {
+                self.loadCallBack?(nil, nil, nil, nil, false)
             } else {
-                self.loadCallBack?(self.nowInfo, self.dayList, self.hourList, true)
+                self.loadCallBack?(self.nowInfo, self.dayList, self.hourList, self.indiceList, true)
             }
         }
     }
@@ -84,4 +86,21 @@ final class WTDetailViewModel {
         }
     }
     
+    // 获取今日天气指数
+    private func getTodayWeatherIndices() {
+        self.group.enter()
+        WTHomeService.getTodayWeatherIndices(locationId: self.currentLocationId) { [weak self] (indices, error) in
+            guard let self = self else {
+                self?.indiceList = nil
+                self?.group.leave()
+                return
+            }
+            if let indiceList = indices?.daily {
+                self.indiceList = indiceList
+            } else {
+                self.indiceList = nil
+            }
+            self.group.leave()
+        }
+    }
 }

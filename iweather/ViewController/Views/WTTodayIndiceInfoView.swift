@@ -1,17 +1,16 @@
 //
-//  WTFeatureDaysInfoView.swift
+//  WTTodayIndiceInfoView.swift
 //  iweather
 //
-//  Created by zhengxu on 2023/1/10.
+//  Created by zhengxu on 2023/1/11.
 //
 
 import Foundation
 import UIKit
 
-final class WTFeatureDaysInfoView: UIView {
-    static let DayInfoCellHeight: CGFloat = 40
+final class WTTodayIndiceInfoView: UIView {
+    static let TodayIndiceCellHeight: CGFloat = 40
     private let tableView = UITableView(frame: .zero)
-    private let moreBtn = UIButton(frame: .zero)
     var cellItems: [CCTableViewItem] = []
     
     override init(frame: CGRect) {
@@ -25,56 +24,40 @@ final class WTFeatureDaysInfoView: UIView {
     
     private func setupViews() {
         self.addSubview(tableView)
-        self.addSubview(moreBtn)
         tableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.top.equalToSuperview()
             make.height.equalTo(0)
         }
-        moreBtn.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.height.equalTo(40)
-        }
         
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isScrollEnabled = false
         tableView.backgroundColor = UIColor.clear
-        
-        moreBtn.setTitle("查看近15天天气", for: .normal)
-        moreBtn.setTitleColor(UIColor.white, for: .normal)
-        moreBtn.titleLabel?.textAlignment = .center
-        moreBtn.titleLabel?.font = UIFont.Font(20)
-        
-        self.moreBtn.isHidden = true
     }
     
-    func updateViews(dayList: [Daily]) {
-        guard !dayList.isEmpty else { return }
-        self.cellItems = dayList.prefix(3).map({ daily in
-            let data = FeatureDaysInfoDataModel()
-            data.fxDate = daily.fxDate
-            data.tempMax = daily.tempMax
-            data.tempMin = daily.tempMin
-            data.textDay = daily.textDay
-            data.iconDay = daily.iconDay
-            data.textNight = daily.textNight
-            data.iconNight = daily.iconNight
-            return FeatureDaysInfoItem(data: data)
+    func updateViews(indiceList: [IndicesDaily]) {
+        guard !indiceList.isEmpty else { return }
+        self.cellItems = indiceList.map({ indice in
+            let data = IndiceDailyInfoDataModel()
+            data.name = indice.name
+            data.text = indice.text
+            data.category = indice.category
+            data.date = indice.date
+            data.level = indice.level
+            data.type = indice.type
+            return IndiceDailyInfoItem(data: data)
         })
+        let tableHeight: CGFloat = self.cellItems.count > 5 ? (WTTodayIndiceInfoView.TodayIndiceCellHeight * 5.5) : (WTTodayIndiceInfoView.TodayIndiceCellHeight * CGFloat(self.cellItems.count))
         self.tableView.snp.updateConstraints { make in
-            make.height.equalTo(WTFeatureDaysInfoView.DayInfoCellHeight * CGFloat(self.cellItems.count))
+            make.height.equalTo(tableHeight)
         }
         self.tableView.reloadData()
-        self.moreBtn.isHidden = false
     }
 }
 
-extension WTFeatureDaysInfoView: UITableViewDelegate, UITableViewDataSource {
+extension WTTodayIndiceInfoView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cellItems.count
     }
