@@ -11,5 +11,17 @@ target 'iweather' do
   pod 'Toast-Swift', '~> 5.0.1'
   
   pod 'QWeather-SDK'
-
+  
+#  pod 'BMKLocationKit'
+#  pod 'BaiduMapKit/Search'
 end
+
+#post_install do |installer_representation|
+#  installer_representation.pods_project.targets.each do |target|
+#    target.build_configurations.each do |config|
+#      if config.name == 'Debug'
+#        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+#      end
+#    end
+#  end
+#end

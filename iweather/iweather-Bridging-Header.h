@@ -4,3 +4,5 @@
 
 #import "CCObjectGenerateFromClassString.h"
 #import <QWeather/AllWeatherInquieirs.h>
+//#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+//#import <BaiduMapAPI_Search/BMKSearchComponent.h>

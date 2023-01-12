@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AllWeatherInquieirs.sharedInstance().appKey = WTBaseData.iWeatherKey
 //        AllWeatherInquieirs.sharedInstance().appType = .DEV
         
+        // 设置百度地图SDK
+        //BMKMapManager.setAgreePrivacy(true) // 假设用户同意百度地图的隐私协议
         return true
     }
 

@@ -24,8 +24,9 @@ final class WTHomeViewController: CCBaseViewController {
         self.createViewControllers()
         if self.viewControllers.count > 0 {
             // 加载首屏天气信息
-            self.viewControllers.first?.loadDetailWeatherData()
+            //self.viewControllers.first?.loadDetailWeatherData()
         }
+       // WTLocationManager.shared.keyWordSearchSuggestion(keyword: "朝阳")
     }
     
     private func setupViews() {
