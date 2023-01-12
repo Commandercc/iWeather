@@ -10,13 +10,13 @@ import UIKit
 
 final class WTFeatureDaysInfoView: UIView {
     var clickMoreClosure: ((CGFloat) -> Void)?
-    static let DayInfoCellHeight: CGFloat = 40
+    static let defaultLoadCount: Int = 3
     private let tableView = UITableView(frame: .zero)
     private let moreBtn = UIButton(frame: .zero)
-    var cellItems: [CCTableViewItem] = []
+    private var cellItems: [CCTableViewItem] = []
     private var isExpand: Bool = false // 标志是否是展开状态
     private var dataList: [FeatureDaysInfoDataModel] = []
-    private let topTilte = UILabel(frame: .zero)
+    private let topTilte = UILabel(frame: .zero) // 标题
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,7 +51,7 @@ final class WTFeatureDaysInfoView: UIView {
             make.height.equalTo(40)
         }
         
-        topTilte.font = UIFont.Font(18)
+        topTilte.font = UIFont.Font(15)
         topTilte.textColor = WTBaseData.mainTitleColor
         topTilte.textAlignment = .left
         topTilte.text = "未来7天天气"
@@ -83,12 +83,12 @@ final class WTFeatureDaysInfoView: UIView {
                 return FeatureDaysInfoItem(data: data)
             })
         } else { // 收起
-            self.cellItems = self.dataList.prefix(3).map({ data in
+            self.cellItems = self.dataList.prefix(WTFeatureDaysInfoView.defaultLoadCount).map({ data in
                 return FeatureDaysInfoItem(data: data)
             })
         }
         self.tableView.snp.updateConstraints { make in
-            make.height.equalTo(WTFeatureDaysInfoView.DayInfoCellHeight * CGFloat(self.cellItems.count))
+            make.height.equalTo(FeatureDaysInfoItem.cellHeight * CGFloat(self.cellItems.count))
         }
         self.tableView.reloadData()
     }
@@ -98,7 +98,8 @@ final class WTFeatureDaysInfoView: UIView {
         let title: String = self.isExpand ? "收起" : "展开更多"
         moreBtn.setTitle(title, for: .normal)
         self.handleTableEvent(isExpand: self.isExpand)
-        self.clickMoreClosure?(CGFloat(10 + 30 + 40 + self.cellItems.count * 40))
+        let fixedHeight: CGFloat = 10 + 30 + 40
+        self.clickMoreClosure?(fixedHeight + CGFloat(self.cellItems.count) * FeatureDaysInfoItem.cellHeight)
     }
 }
 

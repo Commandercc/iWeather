@@ -9,8 +9,14 @@ import Foundation
 import UIKit
 
 final class WTTodayIndiceInfoView: UIView {
-    static let TodayIndiceCellHeight: CGFloat = 40
+    var clickMoreClosure: ((CGFloat) -> Void)?
+    static let defaultLoadCount: Int = 5 // 默认列表加载数量
     private let tableView = UITableView(frame: .zero)
+    private var isExpand: Bool = false // 标志是否是展开状态
+    private var dataList: [IndiceDailyInfoDataModel] = []
+    private let topTilte = UILabel(frame: .zero) // 标题
+    private let moreBtn = UIButton(frame: .zero)
+
     var cellItems: [CCTableViewItem] = []
     
     override init(frame: CGRect) {
@@ -23,37 +29,78 @@ final class WTTodayIndiceInfoView: UIView {
     }
     
     private func setupViews() {
+        self.backgroundColor = WTBaseData.moduleBackColor
+        self.addSubview(topTilte)
         self.addSubview(tableView)
+        self.addSubview(moreBtn)
+        topTilte.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(10)
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.height.equalTo(30)
+        }
         tableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalTo(topTilte.snp.bottom)
             make.height.equalTo(0)
         }
+        moreBtn.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.height.equalTo(40)
+        }
         
-        tableView.separatorStyle = .singleLine
+        topTilte.font = UIFont.Font(15)
+        topTilte.textColor = WTBaseData.mainTitleColor
+        topTilte.textAlignment = .left
+        topTilte.text = "今日生活指数"
+        
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.clear
+        tableView.isScrollEnabled = false
+        
+        moreBtn.setTitle("展开更多", for: .normal)
+        moreBtn.setTitleColor(WTBaseData.mainTitleColor, for: .normal)
+        moreBtn.titleLabel?.textAlignment = .center
+        moreBtn.titleLabel?.font = UIFont.Font(15)
+        moreBtn.addTarget(self, action: #selector(moreBtnClockEvent), for: .touchUpInside)
+        self.moreBtn.isHidden = true
     }
     
-    func updateViews(indiceList: [IndicesDaily]) {
-        guard !indiceList.isEmpty else { return }
-        self.cellItems = indiceList.map({ indice in
-            let data = IndiceDailyInfoDataModel()
-            data.name = indice.name
-            data.text = indice.text
-            data.category = indice.category
-            data.date = indice.date
-            data.level = indice.level
-            data.type = indice.type
-            return IndiceDailyInfoItem(data: data)
-        })
-        let tableHeight: CGFloat = self.cellItems.count > 5 ? (WTTodayIndiceInfoView.TodayIndiceCellHeight * 5.5) : (WTTodayIndiceInfoView.TodayIndiceCellHeight * CGFloat(self.cellItems.count))
+    func updateViews(dataList: [IndiceDailyInfoDataModel]) {
+        guard !dataList.isEmpty else { return }
+        self.isExpand = false
+        self.dataList = dataList
+        self.moreBtn.isHidden = false
+        self.handleTableEvent(isExpand: self.isExpand)
+    }
+    
+    private func handleTableEvent(isExpand: Bool) {
+        if isExpand { // 展开
+            self.cellItems = self.dataList.map({ data in
+                return IndiceDailyInfoItem(data: data)
+            })
+        } else { // 收起
+            self.cellItems = self.dataList.prefix(WTTodayIndiceInfoView.defaultLoadCount).map({ data in
+                return IndiceDailyInfoItem(data: data)
+            })
+        }
         self.tableView.snp.updateConstraints { make in
-            make.height.equalTo(tableHeight)
+            make.height.equalTo(IndiceDailyInfoItem.cellHeight * CGFloat(self.cellItems.count))
         }
         self.tableView.reloadData()
+    }
+    
+    @objc func moreBtnClockEvent() {
+        self.isExpand = !self.isExpand
+        let title: String = self.isExpand ? "收起" : "展开更多"
+        moreBtn.setTitle(title, for: .normal)
+        self.handleTableEvent(isExpand: self.isExpand)
+        let fixedHeight: CGFloat = 10 + 30 + 40
+        self.clickMoreClosure?(fixedHeight + CGFloat(self.cellItems.count) * IndiceDailyInfoItem.cellHeight)
     }
 }
 
@@ -70,8 +117,6 @@ extension WTTodayIndiceInfoView: UITableViewDelegate, UITableViewDataSource {
         }
         cell?.item = item
         cell?.selectionStyle = .none
-        cell?.backgroundView?.backgroundColor = UIColor.clear
-        cell?.backgroundColor = UIColor.clear
         return cell ?? CCTableViewCell()
     }
     

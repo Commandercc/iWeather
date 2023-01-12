@@ -27,12 +27,13 @@ final class IndiceDailyInfoDataModel {
 }
 
 final class IndiceDailyInfoItem: CCTableViewItem {
+    static let cellHeight: CGFloat = 70
     let data: IndiceDailyInfoDataModel
     
     init(data: IndiceDailyInfoDataModel) {
         self.data = data
         super.init()
-        self.cellHeight = 40
+        self.cellHeight = IndiceDailyInfoItem.cellHeight
     }
 }
 
@@ -59,10 +60,20 @@ final class IndiceDailyInfoCell: CCTableViewCell {
     }
     
     private func setupViews() {
-        contentView.addSubViews(views: [indiceName, indiceCategory, indiceDesc])
+        let backView = UIView(frame: .zero)
+        self.contentView.addSubview(backView)
+        backView.backgroundColor = WTBaseData.mainBackColor
+        backView.layer.cornerRadius = 5
+        backView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
+        backView.addSubViews(views: [indiceName, indiceCategory, indiceDesc])
         indiceName.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
+            make.top.equalToSuperview().offset(5)
+            make.left.equalToSuperview().offset(10)
         }
         indiceCategory.snp.makeConstraints { make in
             make.centerY.equalTo(indiceName.snp.centerY)
@@ -70,17 +81,17 @@ final class IndiceDailyInfoCell: CCTableViewCell {
             make.right.lessThanOrEqualToSuperview()
         }
         indiceDesc.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.left.equalTo(indiceName.snp.left)
             make.top.equalTo(indiceName.snp.bottom).offset(10)
             make.right.lessThanOrEqualToSuperview()
         }
         
-        indiceName.font = UIFont.Font(20)
-        indiceName.textColor = UIColor.white
-        indiceCategory.font = UIFont.Font(20)
-        indiceCategory.textColor = UIColor.white
+        indiceName.font = UIFont.Font(13)
+        indiceName.textColor = WTBaseData.mainTitleColor
+        indiceCategory.font = UIFont.Font(11)
+        indiceCategory.textColor = WTBaseData.mainTitleColor
         indiceDesc.font = UIFont.Font(10)
-        indiceDesc.textColor = UIColor.white
+        indiceDesc.textColor = WTBaseData.mainTitleColor
         indiceDesc.numberOfLines = 2
         indiceDesc.lineBreakMode = .byTruncatingTail
     }

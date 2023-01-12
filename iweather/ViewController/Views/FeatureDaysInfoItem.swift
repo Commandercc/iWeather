@@ -37,12 +37,13 @@ final class FeatureDaysInfoDataModel {
 }
 
 final class FeatureDaysInfoItem: CCTableViewItem {
+    static let cellHeight: CGFloat = 60
     let data: FeatureDaysInfoDataModel
     
     init(data: FeatureDaysInfoDataModel) {
         self.data = data
         super.init()
-        self.cellHeight = WTFeatureDaysInfoView.DayInfoCellHeight
+        self.cellHeight = FeatureDaysInfoItem.cellHeight
     }
 }
 
@@ -76,8 +77,8 @@ final class FeatureDaysInfoCell: CCTableViewCell {
         backView.backgroundColor = WTBaseData.mainBackColor
         backView.layer.cornerRadius = 5
         backView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2.5)
-            make.bottom.equalToSuperview().offset(-2.5)
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
             make.left.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
         }
