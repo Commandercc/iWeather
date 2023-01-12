@@ -13,7 +13,9 @@ let isIPhoneXR_XSMax = (CGFloat.screenWidth == 414 && CGFloat.screenHeight == 89
 let isIPhone12_12Pro = (CGFloat.screenWidth == 390 && CGFloat.screenHeight == 844) || (CGFloat.screenWidth == 844 && CGFloat.screenHeight == 390)
 let isIPhone12mini = (CGFloat.screenWidth == 360 && CGFloat.screenHeight == 780) || (CGFloat.screenWidth == 780 && CGFloat.screenHeight == 360)
 let isIPhone12ProMax = (CGFloat.screenWidth == 428 && CGFloat.screenHeight == 926) || (CGFloat.screenWidth == 926 && CGFloat.screenHeight == 428)
-let isFullScreen = isIPhoneX_XS || isIPhoneXR_XSMax || isIPhone12mini || isIPhone12_12Pro || isIPhone12ProMax || (UIApplication.shared.statusBarFrame.size.height == 44)
+let isIPhone14_14Pro = (CGFloat.screenWidth == 393 && CGFloat.screenHeight == 852) || (CGFloat.screenWidth == 852 && CGFloat.screenHeight == 393)
+let isIPhone14_14ProMax = (CGFloat.screenWidth == 430 && CGFloat.screenHeight == 932) || (CGFloat.screenWidth == 932 && CGFloat.screenHeight == 430)
+let isFullScreen = isIPhoneX_XS || isIPhoneXR_XSMax || isIPhone12mini || isIPhone12_12Pro || isIPhone12ProMax || isIPhone14_14Pro || isIPhone14_14ProMax || (UIApplication.shared.statusBarFrame.size.height == 44)
 
 extension UIColor {
     static var redTheme: UIColor { return UIColor.xEB0029 }

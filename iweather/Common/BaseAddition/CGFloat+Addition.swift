@@ -14,11 +14,7 @@ extension CGFloat {
     static var screenHeight: CGFloat { return UIScreen.main.bounds.height }
     static var screenScale: CGFloat { return UIScreen.main.scale }
     static var statusBarHeight: CGFloat {
-        if #available(iOS 11.0, *) {
-            return isFullScreen ? UIApplication.shared.keyWindow?.safeAreaInsets.top ?? UIApplication.shared.statusBarFrame.height : 20
-        } else {
-            return isFullScreen ? UIApplication.shared.statusBarFrame.height : 20
-        }
+        return UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? UIApplication.shared.statusBarFrame.height
     }
     static var safeBottom: CGFloat { return isFullScreen ? 34 : 0 }
     static var navBarHeight: CGFloat { return isFullScreen ? (44 + statusBarHeight) : 64.0 }
