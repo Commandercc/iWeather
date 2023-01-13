@@ -48,6 +48,7 @@
 		24CBE3AF296EFA2B003EAAF3 /* NowInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBE3AE296EFA2B003EAAF3 /* NowInfoItem.swift */; };
 		24CBE3B129704C67003EAAF3 /* WTLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */; };
 		24DF95262971612600DF4481 /* WTLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF95252971612600DF4481 /* WTLocation.swift */; };
+		24DF952829717C6E00DF4481 /* WTPermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF952729717C6E00DF4481 /* WTPermissionManager.swift */; };
 		49604626F8F275D6265B2B93 /* Pods_iweather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4293F1DAFF621C0EEC4CDA43 /* Pods_iweather.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		24CBE3AE296EFA2B003EAAF3 /* NowInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowInfoItem.swift; sourceTree = "<group>"; };
 		24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTLocationManager.swift; sourceTree = "<group>"; };
 		24DF95252971612600DF4481 /* WTLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTLocation.swift; sourceTree = "<group>"; };
+		24DF952729717C6E00DF4481 /* WTPermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTPermissionManager.swift; sourceTree = "<group>"; };
 		334D368BAE4D5155C6CFA2E5 /* Pods-iweather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iweather.release.xcconfig"; path = "Target Support Files/Pods-iweather/Pods-iweather.release.xcconfig"; sourceTree = "<group>"; };
 		4293F1DAFF621C0EEC4CDA43 /* Pods_iweather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iweather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9997A0FB24B4E407F51AD45D /* Pods-iweather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iweather.debug.xcconfig"; path = "Target Support Files/Pods-iweather/Pods-iweather.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				24B30AAA296A706D00A2221E /* WTBaseData.swift */,
-				24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */,
 				24DF95252971612600DF4481 /* WTLocation.swift */,
 			);
 			path = Config;
@@ -162,7 +163,9 @@
 		24B30A7429690F4C00A2221E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */,
 				24B30AAF296A885F00A2221E /* WTHomeService.swift */,
+				24DF952729717C6E00DF4481 /* WTPermissionManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				24B30A7B2969108F00A2221E /* CCTableViewItem.swift in Sources */,
 				24B30AA6296989AA00A2221E /* WTDetailPageListViewController.swift in Sources */,
 				24B30A8E2969111600A2221E /* UIImage+Addition.swift in Sources */,
+				24DF952829717C6E00DF4481 /* WTPermissionManager.swift in Sources */,
 				24B30A9E29691C2500A2221E /* WTHomeViewController.swift in Sources */,
 				24B30A902969111600A2221E /* Then.swift in Sources */,
 				24B30A83296910D200A2221E /* CCActivityLoadingView.swift in Sources */,

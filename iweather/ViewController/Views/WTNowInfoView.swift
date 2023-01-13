@@ -107,6 +107,10 @@ final class WTNowInfoView: UIView {
         }
         atomic4.updateViews(data: data4)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        WTPermissionManager().checkLocationStatus()
+    }
 }
 
 final class WTNowInfoAtomicData {
