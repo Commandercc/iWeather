@@ -43,9 +43,11 @@
 		24B30AB2296C52EF00A2221E /* WTHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30AB1296C52EF00A2221E /* WTHomeViewModel.swift */; };
 		24B30AB4296D9FDF00A2221E /* WTNowInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30AB3296D9FDF00A2221E /* WTNowInfoView.swift */; };
 		24B30AB6296DBD7500A2221E /* WTFeatureDaysInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30AB5296DBD7500A2221E /* WTFeatureDaysInfoView.swift */; };
+		24C71CE42970F95F00B6E75A /* WTModuleBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C71CE32970F95F00B6E75A /* WTModuleBaseView.swift */; };
 		24CBE3AD296DC575003EAAF3 /* FeatureDaysInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBE3AC296DC575003EAAF3 /* FeatureDaysInfoItem.swift */; };
 		24CBE3AF296EFA2B003EAAF3 /* NowInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBE3AE296EFA2B003EAAF3 /* NowInfoItem.swift */; };
 		24CBE3B129704C67003EAAF3 /* WTLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */; };
+		24DF95262971612600DF4481 /* WTLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF95252971612600DF4481 /* WTLocation.swift */; };
 		49604626F8F275D6265B2B93 /* Pods_iweather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4293F1DAFF621C0EEC4CDA43 /* Pods_iweather.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,9 +92,11 @@
 		24B30AB1296C52EF00A2221E /* WTHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTHomeViewModel.swift; sourceTree = "<group>"; };
 		24B30AB3296D9FDF00A2221E /* WTNowInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTNowInfoView.swift; sourceTree = "<group>"; };
 		24B30AB5296DBD7500A2221E /* WTFeatureDaysInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTFeatureDaysInfoView.swift; sourceTree = "<group>"; };
+		24C71CE32970F95F00B6E75A /* WTModuleBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTModuleBaseView.swift; sourceTree = "<group>"; };
 		24CBE3AC296DC575003EAAF3 /* FeatureDaysInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDaysInfoItem.swift; sourceTree = "<group>"; };
 		24CBE3AE296EFA2B003EAAF3 /* NowInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowInfoItem.swift; sourceTree = "<group>"; };
 		24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTLocationManager.swift; sourceTree = "<group>"; };
+		24DF95252971612600DF4481 /* WTLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTLocation.swift; sourceTree = "<group>"; };
 		334D368BAE4D5155C6CFA2E5 /* Pods-iweather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iweather.release.xcconfig"; path = "Target Support Files/Pods-iweather/Pods-iweather.release.xcconfig"; sourceTree = "<group>"; };
 		4293F1DAFF621C0EEC4CDA43 /* Pods_iweather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iweather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9997A0FB24B4E407F51AD45D /* Pods-iweather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iweather.debug.xcconfig"; path = "Target Support Files/Pods-iweather/Pods-iweather.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 			children = (
 				24B30AAA296A706D00A2221E /* WTBaseData.swift */,
 				24CBE3B029704C67003EAAF3 /* WTLocationManager.swift */,
+				24DF95252971612600DF4481 /* WTLocation.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				2432734E296EBBBD002A1654 /* IndiceDailyInfoItem.swift */,
 				24327350296ED1DA002A1654 /* WTTodayIndiceInfoView.swift */,
 				24CBE3AE296EFA2B003EAAF3 /* NowInfoItem.swift */,
+				24C71CE32970F95F00B6E75A /* WTModuleBaseView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -417,10 +423,12 @@
 				24B30A602968962700A2221E /* AppDelegate.swift in Sources */,
 				24CBE3AD296DC575003EAAF3 /* FeatureDaysInfoItem.swift in Sources */,
 				24B30A932969111600A2221E /* UIViewController+Addition.swift in Sources */,
+				24C71CE42970F95F00B6E75A /* WTModuleBaseView.swift in Sources */,
 				24B30A622968962700A2221E /* SceneDelegate.swift in Sources */,
 				24B30AA4296978FA00A2221E /* WTLaunchScreenViewController.swift in Sources */,
 				24B30AAB296A706D00A2221E /* WTBaseData.swift in Sources */,
 				24327351296ED1DA002A1654 /* WTTodayIndiceInfoView.swift in Sources */,
+				24DF95262971612600DF4481 /* WTLocation.swift in Sources */,
 				24B30A912969111600A2221E /* UIFont+Addition.swift in Sources */,
 				24B30A98296915AB00A2221E /* CCUIConfig.swift in Sources */,
 				24B30A922969111600A2221E /* UIView+Addition.swift in Sources */,
@@ -566,10 +574,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6AT6P6L7SF;
+				DEVELOPMENT_TEAM = YH9Z7WK452;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iweather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用您的位置，来为您呈现当前的天气信息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -606,7 +616,9 @@
 				DEVELOPMENT_TEAM = 6AT6P6L7SF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iweather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用您的位置，来为您呈现当前的天气信息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

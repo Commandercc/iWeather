@@ -23,7 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        AllWeatherInquieirs.sharedInstance().appType = .DEV
         
         // 设置百度地图SDK
-        //BMKMapManager.setAgreePrivacy(true) // 假设用户同意百度地图的隐私协议
+        BMKMapManager.sharedInstance().start(WTBaseData.iBaiduKey, generalDelegate: self) // 设置基础服务百度ak鉴权
+        BMKLocationAuth.sharedInstance().checkPermision(withKey: WTBaseData.iBaiduKey, authDelegate: self) // 设置定位服务ak鉴权
+        BMKMapManager.setAgreePrivacy(true) // 假设用户同意百度地图的隐私协议
+        BMKLocationAuth.sharedInstance().setAgreePrivacy(true)
         return true
     }
 
@@ -40,7 +43,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
+
+// 百度地图SDK鉴权结果回调
+extension AppDelegate: BMKGeneralDelegate {
+    func onGetPermissionState(_ iError: Int32) {
+        if iError == 0 {
+            print("地图服务授权成功")
+        } else {
+            print("地图服务授权失败: \(iError)")
+        }
+    }
+}
+
+// 百度定位SDK鉴权结果回调
+extension AppDelegate: BMKLocationAuthDelegate {
+    func onCheckPermissionState(_ iError: BMKLocationAuthErrorCode) {
+        if iError == .success {
+            print("定位服务授权成功")
+        } else {
+            print("定位服务授权失败: \(iError)")
+        }
+    }
+}
+
 

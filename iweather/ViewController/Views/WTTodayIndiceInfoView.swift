@@ -8,13 +8,12 @@
 import Foundation
 import UIKit
 
-final class WTTodayIndiceInfoView: UIView {
+final class WTTodayIndiceInfoView: WTModuleBaseView {
     var clickMoreClosure: ((CGFloat) -> Void)?
     static let defaultLoadCount: Int = 5 // 默认列表加载数量
     private let tableView = UITableView(frame: .zero)
     private var isExpand: Bool = false // 标志是否是展开状态
     private var dataList: [IndiceDailyInfoDataModel] = []
-    private let topTilte = UILabel(frame: .zero) // 标题
     private let moreBtn = UIButton(frame: .zero)
 
     var cellItems: [CCTableViewItem] = []
@@ -30,15 +29,9 @@ final class WTTodayIndiceInfoView: UIView {
     
     private func setupViews() {
         self.backgroundColor = WTBaseData.moduleBackColor
-        self.addSubview(topTilte)
         self.addSubview(tableView)
         self.addSubview(moreBtn)
-        topTilte.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.right.lessThanOrEqualToSuperview().offset(-10)
-            make.height.equalTo(30)
-        }
+        
         tableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -52,9 +45,6 @@ final class WTTodayIndiceInfoView: UIView {
             make.height.equalTo(40)
         }
         
-        topTilte.font = UIFont.Font(15)
-        topTilte.textColor = WTBaseData.mainTitleColor
-        topTilte.textAlignment = .left
         topTilte.text = "今日生活指数"
         
         tableView.separatorStyle = .none

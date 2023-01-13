@@ -11,7 +11,7 @@ import UIKit
 final class WTTitleLocationScrollView: UIView {
     private let addView = UIImageView(image: UIImage(named: "icon_add_black"))
     private let moreView = UIImageView(image: UIImage(named: "icon_more_vertical_black"))
-    private let location = UILabel(frame: .zero)
+    let location = UILabel(frame: .zero)
     let pageControl = UIPageControl(frame: .zero)
     var localTitles: [String] = [] {
         didSet {
@@ -67,7 +67,7 @@ final class WTTitleLocationScrollView: UIView {
             make.height.equalTo(0.5)
         }
         
-        location.text = "朝阳区 左家庄西街"
+        location.text = ""
         location.font = UIFont.BoldFont(18)
         location.textAlignment = .center
         location.lineBreakMode = .byTruncatingTail

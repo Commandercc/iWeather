@@ -12,8 +12,8 @@ target 'iweather' do
   
   pod 'QWeather-SDK'
   
-#  pod 'BMKLocationKit'
-#  pod 'BaiduMapKit/Search'
+  pod 'BMKLocationKit'
+  pod 'BaiduMapKit/Search'
 end
 
 #post_install do |installer_representation|

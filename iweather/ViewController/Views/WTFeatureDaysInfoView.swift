@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class WTFeatureDaysInfoView: UIView {
+final class WTFeatureDaysInfoView: WTModuleBaseView {
     var clickMoreClosure: ((CGFloat) -> Void)?
     static let defaultLoadCount: Int = 3
     private let tableView = UITableView(frame: .zero)
@@ -16,7 +16,6 @@ final class WTFeatureDaysInfoView: UIView {
     private var cellItems: [CCTableViewItem] = []
     private var isExpand: Bool = false // 标志是否是展开状态
     private var dataList: [FeatureDaysInfoDataModel] = []
-    private let topTilte = UILabel(frame: .zero) // 标题
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,15 +28,9 @@ final class WTFeatureDaysInfoView: UIView {
     
     private func setupViews() {
         self.backgroundColor = WTBaseData.moduleBackColor
-        self.addSubview(topTilte)
         self.addSubview(tableView)
         self.addSubview(moreBtn)
-        topTilte.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.right.lessThanOrEqualToSuperview().offset(-10)
-            make.height.equalTo(30)
-        }
+       
         tableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -51,9 +44,6 @@ final class WTFeatureDaysInfoView: UIView {
             make.height.equalTo(40)
         }
         
-        topTilte.font = UIFont.Font(15)
-        topTilte.textColor = WTBaseData.mainTitleColor
-        topTilte.textAlignment = .left
         topTilte.text = "未来7天天气"
         
         tableView.separatorStyle = .none

@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 
-final class WTFeatureHoursInfoView: UIView {
+final class WTFeatureHoursInfoView: WTModuleBaseView {
     private var collectionView: UICollectionView?
     private var cellItems: [CCCollectionViewItem] = []
-    private let topTilte = UILabel(frame: .zero) // 标题
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,17 +23,6 @@ final class WTFeatureHoursInfoView: UIView {
     
     private func setupViews() {
         self.backgroundColor = WTBaseData.moduleBackColor
-        self.addSubview(topTilte)
-        topTilte.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.right.lessThanOrEqualToSuperview().offset(-10)
-            make.height.equalTo(30)
-        }
-        
-        topTilte.font = UIFont.Font(15)
-        topTilte.textColor = WTBaseData.mainTitleColor
-        topTilte.textAlignment = .left
         topTilte.text = "未来24小时天气"
         
         let flowLayout = UICollectionViewFlowLayout()
