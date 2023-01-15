@@ -8,11 +8,11 @@
 import Foundation
 
 typealias confirmLocationCallBack = (WTLocation?, Error?) -> Void // 定位服务回调
-typealias searchLocationCallBack = ([WTBaseData]?, Error?) -> Void // 地点检索服务回调
 
 final class WTLocationManager: NSObject {
     static let kToSaveLocations: String = "kToSaveLocations"
     static let shared = WTLocationManager()
+    var searchLocationCallBack: (([WTLocation]?, Error?) -> Void)? // 地点检索服务回调
     var cachedLocations: [WTLocation] {
         if let data = UserDefaults.standard.data(forKey: WTLocationManager.kToSaveLocations) {
             do {
@@ -49,7 +49,7 @@ final class WTLocationManager: NSObject {
     // 定位服务
     func confirmLocationService(finish: @escaping confirmLocationCallBack) {
         let locationManager = BMKLocationManager()
-        locationManager.delegate = self
+        //locationManager.delegate = self
         locationManager.coordinateType = .BMK09LL // 设置返回的坐标系类型
         locationManager.distanceFilter = kCLDistanceFilterNone // 设置过滤参数
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters // 设置预期经度
@@ -89,9 +89,20 @@ final class WTLocationManager: NSObject {
 extension WTLocationManager: BMKSuggestionSearchDelegate {
     func onGetSuggestionResult(_ searcher: BMKSuggestionSearch!, result: BMKSuggestionSearchResult!, errorCode error: BMKSearchErrorCode) {
         print("log log \(result.suggestionList[0].location)")
+        if let res = result.suggestionList {
+            let responseLocations: [WTLocation] = res.map { suggestInfo in
+                let loc = WTLocation()
+                loc.name = suggestInfo.key
+                loc.city = suggestInfo.city
+                loc.district = suggestInfo.district
+                loc.address = suggestInfo.address
+                loc.id = suggestInfo.uid
+                loc.location = Coordinate(suggestInfo.location)
+                return loc
+            }
+            self.searchLocationCallBack?(responseLocations, nil)
+        } else {
+            self.searchLocationCallBack?([], nil)  // 处理错误情况
+        }
     }
-}
-
-extension WTLocationManager: BMKLocationManagerDelegate {
-    
 }

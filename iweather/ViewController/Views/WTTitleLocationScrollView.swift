@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 final class WTTitleLocationScrollView: UIView {
+    var addCallback: (() -> Void)?
     private let addView = UIImageView(image: UIImage(named: "icon_add_black"))
     private let moreView = UIImageView(image: UIImage(named: "icon_more_vertical_black"))
     let location = UILabel(frame: .zero)
@@ -16,6 +17,7 @@ final class WTTitleLocationScrollView: UIView {
     var localTitles: [String] = [] {
         didSet {
             self.pageControl.numberOfPages = localTitles.count
+            self.pageControl.isHidden = localTitles.count <= 1
         }
     }
     
@@ -76,5 +78,17 @@ final class WTTitleLocationScrollView: UIView {
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.black
         pageControl.isEnabled = false
+        
+        addView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(addLocation))
+        addView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func addLocation() {
+//        let vc = WTAddLocationViewController()
+//        if let nav = UIApplication.shared.curKeyWindow?. {
+//            nav.pushViewController(vc, animated: true)
+//        }
+        self.addCallback?()
     }
 }

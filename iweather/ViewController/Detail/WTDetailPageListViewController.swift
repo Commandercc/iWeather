@@ -33,6 +33,7 @@ final class WTDetailPageListViewController: CCBaseViewController {
     
     private func setupViews() {
         self.view.addSubview(scrollView)
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = WTBaseData.mainBackColor
