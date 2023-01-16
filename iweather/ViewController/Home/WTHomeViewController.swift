@@ -90,7 +90,7 @@ final class WTHomeViewController: CCBaseViewController {
                 self.setupLocationView(title: loc.name)
                 self.createViewControllers()
             } else {
-                
+                print("log log APP启动首次定位失败")
             }
         }
     }

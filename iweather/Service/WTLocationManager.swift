@@ -14,15 +14,7 @@ final class WTLocationManager: NSObject {
     static let shared = WTLocationManager()
     var searchLocationCallBack: (([WTLocation]?, Error?) -> Void)? // 地点检索服务回调
     var cachedLocations: [WTLocation] {
-        if let data = UserDefaults.standard.data(forKey: WTLocationManager.kToSaveLocations) {
-            do {
-                return try JSONDecoder().decode([WTLocation].self, from: data)
-            } catch {
-                print(error)
-            }
-            return []
-        }
-        return []
+        return self.getSavedLocations()
     }
 
     private override init() {
@@ -80,10 +72,6 @@ final class WTLocationManager: NSObject {
             }
         }
     }
-    
-    func clearAllCachedLocations() {
-        UserDefaults.standard.removeObject(forKey: WTLocationManager.kToSaveLocations)
-    }
 }
 
 extension WTLocationManager: BMKSuggestionSearchDelegate {
@@ -103,6 +91,59 @@ extension WTLocationManager: BMKSuggestionSearchDelegate {
             self.searchLocationCallBack?(responseLocations, nil)
         } else {
             self.searchLocationCallBack?([], nil)  // 处理错误情况
+        }
+    }
+}
+
+// 处理UserDefaults相关操作
+extension WTLocationManager {
+    // 获取所有地点
+    func getSavedLocations() -> [WTLocation] {
+        if let data = UserDefaults.standard.data(forKey: WTLocationManager.kToSaveLocations) {
+            do {
+                return try JSONDecoder().decode([WTLocation].self, from: data)
+            } catch {
+                print("获取失败：\(error)")
+            }
+            return []
+        }
+        return []
+    }
+    
+    // 清除所有保存的地点
+    func clearAllCachedLocations() {
+        UserDefaults.standard.removeObject(forKey: WTLocationManager.kToSaveLocations)
+    }
+    
+    // 添加新地点
+    func addNewLocation(loc: WTLocation) {
+        do {
+            // 先获取当前已保存的地点
+            var currentLocations = self.getSavedLocations()
+            // 追加新地点
+            currentLocations.append(loc)
+            // 保存
+            let data = try JSONEncoder().encode(currentLocations)
+            UserDefaults.standard.set(data, forKey: WTLocationManager.kToSaveLocations)
+        } catch {
+            print("保存失败")
+        }
+    }
+    
+    // 移除某个地点
+    func removeTargetLocation(loc: WTLocation) {
+        // 先获取当前已保存的地点
+        var currentLocations = self.getSavedLocations()
+        // 找到要删除的地点，删除
+        if let index = currentLocations.firstIndex(where: { $0.id == loc.id }) {
+            currentLocations.remove(at: index)
+            do {
+                // 将删除后的内容保存
+                let data = try JSONEncoder().encode(currentLocations)
+                UserDefaults.standard.set(data, forKey: WTLocationManager.kToSaveLocations)
+            } catch {
+                print("删除失败")
+            }
         }
     }
 }

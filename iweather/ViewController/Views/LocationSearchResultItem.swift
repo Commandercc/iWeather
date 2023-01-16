@@ -52,9 +52,10 @@ final class LocationSearchResultCell: CCTableViewCell {
         nameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(10)
+            make.right.lessThanOrEqualToSuperview()
         }
         
-        nameLabel.font = UIFont.Font(20)
+        nameLabel.font = UIFont.Font(15)
         nameLabel.textColor = UIColor.black
         nameLabel.textAlignment = .left
     }
