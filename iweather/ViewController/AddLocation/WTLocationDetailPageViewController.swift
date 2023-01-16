@@ -98,6 +98,14 @@ final class WTLocationDetailPageViewController: CCBaseViewController {
         gotoHomeBtn.addTarget(self, action: #selector(gotoHome), for: .touchUpInside)
         gotoHomeBtn.layer.cornerRadius = 10
         gotoHomeBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        
+        if WTLocationManager.shared.getSavedLocations().contains(where: { $0.id == self.location.id }) {
+            self.addBtn.isHidden = true
+            self.opreateView.isHidden = false
+        } else {
+            self.addBtn.isHidden = false
+            self.opreateView.isHidden = true
+        }
     }
     
     @objc private func addToHome() {

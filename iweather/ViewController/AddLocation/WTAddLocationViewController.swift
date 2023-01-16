@@ -48,11 +48,6 @@ final class WTAddLocationViewController: CCBaseViewController {
             cancelButton.setTitle("取消", for: .normal)
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        print("log log touche")
-    }
 }
 
 extension WTAddLocationViewController: UITableViewDelegate, UITableViewDataSource {

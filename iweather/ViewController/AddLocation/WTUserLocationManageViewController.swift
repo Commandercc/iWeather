@@ -13,11 +13,12 @@ final class WTUserLocationManageViewController: CCBaseViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.cellItems.removeAll()
         WTLocationManager.shared.cachedLocations.forEach { location in
             let item = LocationAndWeatherItem(location: location, temp: "-33°", wDesc: "晴")
             self.cellItems.append(item)
-            self.tableView.reloadData()
         }
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
