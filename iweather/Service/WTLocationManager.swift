@@ -16,6 +16,8 @@ final class WTLocationManager: NSObject {
     var cachedLocations: [WTLocation] {
         return self.getSavedLocations()
     }
+    
+    private let locationManager = CLLocationManager()
 
     private override init() {
         super.init()
@@ -51,7 +53,7 @@ final class WTLocationManager: NSObject {
         locationManager.locationTimeout = 5 // 设置位置获取超时
         locationManager.reGeocodeTimeout = 5 // 设置地址信息获取超时
         
-        locationManager.requestLocation(withReGeocode: true, withNetworkState: false) { (bmkLocation, state, error) in
+        let success = locationManager.requestLocation(withReGeocode: true, withNetworkState: false) { (bmkLocation, state, error) in
             print("log log \(bmkLocation?.location?.coordinate)  \(bmkLocation?.rgcData?.description)")
             if let loc = bmkLocation?.location, let rgcData = bmkLocation?.rgcData {
                 let tempLocation = WTLocation()
@@ -71,6 +73,18 @@ final class WTLocationManager: NSObject {
                 finish(nil, error)
             }
         }
+        print("单次定位结果: \(success)")
+    }
+    
+    func startConfirmLocation() {
+        WTPermissionManager().checkLocationStatus()
+//        let locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest // 设置精度获取到米
+        locationManager.distanceFilter = kCLDistanceFilterNone // 设置无过滤器
+        //locationManager.requestWhenInUseAuthorization() // 取得定位权限
+        locationManager.startUpdatingLocation() // 开始获取定位
+        locationManager.allowsBackgroundLocationUpdates = false
     }
 }
 
@@ -145,5 +159,23 @@ extension WTLocationManager {
                 print("删除失败")
             }
         }
+    }
+}
+
+extension WTLocationManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+
+        let resultLoc = locations.last
+        print("定位结果: \(resultLoc?.coordinate)")
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(resultLoc!) { (placeList, error) in
+            print("定位位置详细信息: \(placeList?.first)")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.locationManager.stopUpdatingLocation()
+        print("定位失败！")
     }
 }

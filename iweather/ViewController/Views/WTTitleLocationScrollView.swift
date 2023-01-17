@@ -75,6 +75,7 @@ final class WTTitleLocationScrollView: UIView {
         location.lineBreakMode = .byTruncatingTail
         location.textColor = UIColor.black
         
+        pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.black
         pageControl.isEnabled = false

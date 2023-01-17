@@ -55,6 +55,7 @@ final class WTHomeViewController: CCBaseViewController {
     private func setupLocationView(title: String) {
         locationView.localTitles = self.locations.map({ $0.name })
         locationView.location.text = title
+        locationView.pageControl.currentPage = 0
     }
     
     private func createViewControllers() {
@@ -70,29 +71,44 @@ final class WTHomeViewController: CCBaseViewController {
         
         if self.viewControllers.count > 0 {
             // 加载首屏天气信息
-           self.viewControllers.first?.loadDetailWeatherData()
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false) // 回到初始位置
+            self.viewControllers.first?.loadDetailWeatherData()
         }
     }
     
     private func bindViewEvent() {
         self.locations = WTLocationManager.shared.cachedLocations
-
+        
+        WTLocationManager.shared.startConfirmLocation()
+        
+        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        btn.setTitle("点我请求", for: .normal)
+        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.addTarget(self, action: #selector(clickToRequest), for: .touchUpInside)
+        self.scrollView.addSubview(btn)
+        btn.center = scrollView.center
+        
         // 默认首屏展示用户当前位置的天气信息
-        self.loadingView.startLoding(self.view)
-        WTLocationManager.shared.confirmLocationService { [weak self] (location: WTLocation?, error: Error?) in
-            self?.loadingView.stopLoading()
-            guard let self = self else {
-                // 这里补充失败的逻辑
-                return
-            }
-            if let loc = location {
-                self.locations.insert(loc, at: 0)
-                self.setupLocationView(title: loc.name)
-                self.createViewControllers()
-            } else {
-                print("log log APP启动首次定位失败")
-            }
-        }
+        //self.loadingView.startLoding(self.view)
+        
+//        WTLocationManager.shared.confirmLocationService { [weak self] (location: WTLocation?, error: Error?) in
+//            self?.loadingView.stopLoading()
+//            guard let self = self else {
+//                // 这里补充失败的逻辑
+//                return
+//            }
+//            if let loc = location {
+//                self.locations.insert(loc, at: 0)
+//                self.setupLocationView(title: loc.name)
+//                self.createViewControllers()
+//            } else {
+//                print("log log APP启动首次定位失败")
+//            }
+      //  }
+    }
+    
+    @objc func clickToRequest() {
+        WTLocationManager.shared.startConfirmLocation()
     }
 }
 
